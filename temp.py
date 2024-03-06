@@ -13,12 +13,9 @@ conversations = [
     ("kwaza@gmail.com", "your phone number?"),
     ("0730974288", "create your password!"),
     ("12345", "confirm your password!"),
-    ("12345", "Great"),
-    ("How are you?", "I'm doing well, thanks.And How are you?"),
-    
+    ("How are you?", "I'm doing well, thanks.And How are you?"),    
     ("I'm also doing well", "Nice to meet you, How can i help you?"),
-    ("What is your name?", "I'm a chatbot.")
-    
+    ("What is your name?", "I'm a chatbot.")  
 ]
 
 # Tokenize the conversation pairs
@@ -54,20 +51,19 @@ model.fit(X, y, epochs=50, verbose=1)
 
 # Define function to generate response using trained model
 def generate_response(input_text):
-   # input_seq = tokenizer.texts_to_sequences([input_text])
+ 
+    """  #input_seq = tokenizer.texts_to_sequences([input_text])
     #padded_input = pad_sequences(input_seq, maxlen=max_sequences_len, padding='post')
     #predicted_output = model.predict(padded_input)
     #predicted_word_index = tf.argmax(predicted_output, axis=-1).numpy()
     #response = tokenizer.sequences_to_texts(predicted_word_index)
-    #return response[0]
+    #return response[0]"""
     
     for question, answer in conversations:
        if user_input.lower() == question.lower():
             return answer
     return "I don't have an answer for now."
     
-
-
 # Test the chatbot
 
 while True:
