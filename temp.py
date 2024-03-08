@@ -6,11 +6,11 @@ from tensorflow.keras.layers import Embedding, LSTM, Dense
 
 # Define dataset of conversation pairs
 conversations = [
-    ("Hello", "Hi!, how can I help you?"),
+    ("Hello", "Hello!, how can I help you?"),
     ("Hi", "Hello!, how can I help you?"),
     ("Hey", "Hello!, How can I help you?"),
-    ("hlw", "Hi!, How can I help you?"),
-    ("h", "Hello!, How can I can help you?")
+    ("hlw", "Hello!, How can I help you?"),
+    ("h", "Hello!, How can I help you?")
 ]
 
 # Tokenize the conversation pairs
@@ -46,21 +46,33 @@ model.fit(X, y, epochs=50, verbose=1)
 
 # Define function to generate response using trained model
 def generate_response(input_text):
- 
-    """  #input_seq = tokenizer.texts_to_sequences([input_text])
-    #padded_input = pad_sequences(input_seq, maxlen=max_sequences_len, padding='post')
-    #predicted_output = model.predict(padded_input)
-    #predicted_word_index = tf.argmax(predicted_output, axis=-1).numpy()
-    #response = tokenizer.sequences_to_texts(predicted_word_index)
-    #return response[0]"""
-    
     for question, answer in conversations:
-       if user_input.lower() == question.lower():
+        if input_text.lower() == question.lower():
             return answer
     return "I don't have an answer for now. Try another question"
-    
-# Test the chatbot
 
+# Function to handle options
+def handle_options(option):
+    if option.lower() == "find me a course":
+        print("Chatbot: Sure! Please provide us your full name.")
+        full_name = input("User: ")
+        print("Chatbot: Provide us your email address.")
+        email_address = input("User: ")
+        print("Chatbot: Provide us your phone number.")
+        phone_number = input("User: ")
+        
+        print("Thank you, check your details are correct.")
+        print(f"Full Name: {full_name}")
+        print(f"Email address: {email_address}")
+        print(f"Phone number: {phone_number}")        
+    elif option.lower() == "advise me":
+        print("Chatbot: Sure! What do you need advice on?")
+        advice_topic = input("User: ")
+        print(f"Chatbot: Here's some advice on {advice_topic}.")
+    else:
+        print("Chatbot: Sorry, I didn't understand your option. Can you please repeat?")
+        
+# Test the chatbot
 while True:
     user_input = input("User: ")
     if user_input.lower() == "exit":
@@ -69,3 +81,10 @@ while True:
     response = generate_response(user_input)
     print(f"Chatbot: {response}")
     
+    # Check for options
+    if response == "Hello!, how can I help you?":
+        print("Chatbot: Here are your options:")
+        print("1. Find me a course")
+        print("2. Advise me")
+        option = input("User: ")
+        handle_options(option)
