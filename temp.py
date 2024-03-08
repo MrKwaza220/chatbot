@@ -6,16 +6,11 @@ from tensorflow.keras.layers import Embedding, LSTM, Dense
 
 # Define dataset of conversation pairs
 conversations = [
-    ("Hello", "Hi, how can I help you?"),
-    ("Hi", "Hello, how can i help you?"),
-    ("Can you find course for me", "Yhha sure, Give your name and surname"),
-    ("Sakhumzi Kwaza", "Give me your email address"),
-    ("kwaza@gmail.com", "your phone number?"),
-    ("0730974288", "create your password!"),
-    ("12345", "confirm your password!"),
-    ("How are you?", "I'm doing well, thanks.And How are you?"),    
-    ("I'm also doing well", "Nice to meet you, How can i help you?"),
-    ("What is your name?", "I'm a chatbot.")  
+    ("Hello", "Hi!, how can I help you?"),
+    ("Hi", "Hello!, how can I help you?"),
+    ("Hey", "Hello!, How can I help you?"),
+    ("hlw", "Hi!, How can I help you?"),
+    ("h", "Hello!, How can I can help you?")
 ]
 
 # Tokenize the conversation pairs
@@ -62,7 +57,7 @@ def generate_response(input_text):
     for question, answer in conversations:
        if user_input.lower() == question.lower():
             return answer
-    return "I don't have an answer for now."
+    return "I don't have an answer for now. Try another question"
     
 # Test the chatbot
 
