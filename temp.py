@@ -8,9 +8,9 @@ from tensorflow.keras.layers import Embedding, LSTM, Dense
 conversations = [
     ("Hello", "Hello!, how can I help you?"),
     ("Hi", "Hello!, how can I help you?"),
-    ("Hey", "Hello!, How can I help you?"),
-    ("hlw", "Hello!, How can I help you?"),
-    ("h", "Hello!, How can I help you?")
+    ("Hey", "Hello!, how can I help you?"),
+    ("hlw", "Hello!, how can I help you?"),
+    ("h", "Hello!, how can I help you?")
 ]
 
 # Tokenize the conversation pairs
@@ -53,7 +53,7 @@ def generate_response(input_text):
 
 # Function to handle options
 def handle_options(option):
-    if option.lower() == "find me a course":
+    if option.lower() == "Find me a course" or option.lower() == "1":
         print("Chatbot: Sure! Please provide us your full name.")
         full_name = input("User: ")
         print("Chatbot: Provide us your email address.")
@@ -61,11 +61,13 @@ def handle_options(option):
         print("Chatbot: Provide us your phone number.")
         phone_number = input("User: ")
         
+        print("\n========================================\n")
         print("Thank you, check your details are correct.")
         print(f"Full Name: {full_name}")
         print(f"Email address: {email_address}")
-        print(f"Phone number: {phone_number}")        
-    elif option.lower() == "advise me":
+        print(f"Phone number: {phone_number}") 
+        print("\n========================================\n")
+    elif option.lower() == "Advise me" or option.lower() == "2":
         print("Chatbot: Sure! What do you need advice on?")
         advice_topic = input("User: ")
         print(f"Chatbot: Here's some advice on {advice_topic}.")
@@ -74,6 +76,8 @@ def handle_options(option):
         
 # Test the chatbot
 while True:
+    print("\n============Welcome to Our chatbot==============\n")
+    
     user_input = input("User: ")
     if user_input.lower() == "exit":
         print("Chatbot: Goodbye")
