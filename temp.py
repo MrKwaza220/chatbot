@@ -1,8 +1,10 @@
 import tensorflow as tf
+import re
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, Dense
+
 
 # Define dataset of conversation pairs
 conversations = [
@@ -44,6 +46,12 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 # Train the model
 model.fit(X, y, epochs=50, verbose=1)
 
+def is_valid_email(email_address):
+    #Regular expression patterm for validation email addresses
+    patterm = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(patterm, email_address)
+
+
 # Define function to generate response using trained model
 def generate_response(input_text):
     for question, answer in conversations:
@@ -56,10 +64,17 @@ def handle_options(option):
     if option.lower() == "Find me a course" or option.lower() == "1":
         print("Chatbot: Sure! Please provide us your full name.")
         full_name = input("User: ")
+        
         print("Chatbot: Provide us your email address.")
         email_address = input("User: ")
+        while not is_valid_email(email_address):
+            print("Chatbot: please enter a valid email address.")
+            email_address = input("User: ")
         print("Chatbot: Provide us your phone number.")
         phone_number = input("User: ")
+        while not phone_number.isdigit() or len(phone_number) !=10:
+            print("Chatbot: Please enter a valid phone number")
+            phone_number = input("User: ")
         
         print("\n========================================\n")
         print("Thank you, check your details are correct.")
